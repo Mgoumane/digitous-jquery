@@ -51,12 +51,49 @@ var allSudoku = [ // Ce tableau contient 50 valeurs (50 sudokus différents)
   "....58.......46.......3.6..9...........4.....3..8.........8...3....91.8.7...2....",
   "3....2..94....3......8.....7.34..2...8..2......5....9.91.......8.................",
 ];
-//console.log(allSudoku)
+var sudoku = [
+  [3, 9, 1, 2, 8, 5, 7, 4, 6],
+  [5, 4, 6, 9, 3, 7, 2, 1, 8],
+  [2, 7, 8, 6, 1, 4, 9, 5, 3],
+  [7, 2, 4, 8, 6, 3, 1, 9, 5],
+  [8, 1, 5, 4, 7, 9, 6, 3, 2],
+  [6, 3, 9, 5, 2, 1, 4, 8, 7],
+  [1, 5, 2, 7, 9, 8, 3, 6, 4],
+  [9, 8, 7, 3, 4, 6, 5, 2, 1],
+  [4, 6, 3, 1, 5, 2, 8, 7, 9],
+];
 
 // Ajoutez une fonction generateSudoku qui prend une ligne au hasard de allSudoku et qui remplit votre tableau sudoku.
 // Qui va me choir un sudoko au hasard parmis les 50 sudokus
-function generateSudoku(){
-  var randomLine = Math.floor(Math.random() * allSudoku.length);// Va me prendre une ligne au hasard 
-  console.log(allSudoku[randomLine])
+function generateSudoku() {
+  var randomLine = Math.floor(Math.random() * allSudoku.length);// Va me prendre un sudoku au hasard 
+  
+  var index = 0;
+  for (var i = 0; i < 9; i++) {
+    for (var j = 0; j < 9; j++) {
+      sudoku[i][j] = allSudoku[randomLine][index];
+      index++;
+    }
+  console.log(sudoku)
+  }
 }
 generateSudoku();
+
+// Ajoutez une fonction displaySudoku qui à l'aide de JQuery, affiche votre sudoku dans votre index.html
+$(document).ready(function() {
+
+  generateSudoku();
+
+
+  var sudokuHtml= '<div class="container">';
+  for (var i = 0; i < 9; i++) {
+      sudokuHtml += `<div id="row${i}" class="row">`;
+      for (var j = 0; j < 9; j++) {
+          sudokuHtml += `<div id="col${j}" class="col-1 case">${sudoku[i][j]}</div>`;
+      }
+      sudokuHtml += '</div>';
+  }
+  sudokuHtml += '</div>';
+
+  $("#sudoku").html(sudokuHtml);
+})
